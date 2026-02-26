@@ -1,0 +1,351 @@
+{
+  "version": "0.1",
+  "created_utc": "2026-02-26T14:48:00Z",
+  "units": {
+    "thickness": "in",
+    "temperature": "F",
+    "time": "minutes"
+  },
+  "notes": [
+    "Starter schema + a few example rows for review. Time models are placeholders (confidence=low) and should be calibrated with test data and/or vetted sources.",
+    "cook_time_models times are intended as ranges and may represent the oven portion only for sear_then_oven rows (see notes per row)."
+  ],
+  "enums": {
+    "cook_class": [
+      "marbled_thick",
+      "lean_tender",
+      "medium_lean",
+      "thin_quick",
+      "bone_in",
+      "tough_marinate"
+    ],
+    "oven_mode": [
+      "bake",
+      "convection",
+      "broil"
+    ],
+    "pan_assumption": [
+      "cast_iron_preheated",
+      "cast_iron_room",
+      "stainless_preheated",
+      "sheet_pan",
+      "wire_rack"
+    ],
+    "start_temp_assumption": [
+      "fridge",
+      "tempered"
+    ],
+    "confidence": [
+      "low",
+      "medium",
+      "high"
+    ]
+  },
+  "cuts": [
+    {
+      "cut_id": "ribeye",
+      "display_name": "Ribeye",
+      "cook_class": "marbled_thick",
+      "typical_thickness_in": 1.25,
+      "notes": "High marbling; forgiving; stronger carryover.",
+      "typical_weight_oz": 14
+    },
+    {
+      "cut_id": "strip",
+      "display_name": "New York Strip",
+      "cook_class": "marbled_thick",
+      "typical_thickness_in": 1,
+      "notes": "Balanced marbling; great crust.",
+      "typical_weight_oz": 12
+    },
+    {
+      "cut_id": "tenderloin",
+      "display_name": "Filet Mignon (Tenderloin)",
+      "cook_class": "lean_tender",
+      "typical_thickness_in": 1.5,
+      "notes": "Very lean; overcooks quickly.",
+      "typical_weight_oz": 8
+    },
+    {
+      "cut_id": "top_sirloin",
+      "display_name": "Baseball Cut Sirloin",
+      "cook_class": "medium_lean",
+      "typical_thickness_in": 1.5,
+      "notes": "Center-cut top sirloin, thicker baseball style; lean and cooks evenly with controlled heat.",
+      "typical_weight_oz": 10
+    },
+    {
+      "cut_id": "t_bone",
+      "display_name": "T-Bone",
+      "cook_class": "bone_in",
+      "typical_thickness_in": 1.25,
+      "notes": "Bone-in; two muscles; time varies.",
+      "typical_weight_oz": 18
+    },
+    {
+      "cut_id": "flank",
+      "display_name": "Flank Steak",
+      "cook_class": "thin_quick",
+      "typical_thickness_in": 0.75,
+      "notes": "Often thinner; best hot/fast; slice across grain.",
+      "typical_weight_oz": 8
+    },
+    {
+      "cut_id": "tomahawk",
+      "display_name": "Tomahawk",
+      "cook_class": "bone_in",
+      "typical_thickness_in": 2,
+      "notes": "Large bone-in rib section; usually thick and slower to heat through.",
+      "typical_weight_oz": 32
+    },
+    {
+      "cut_id": "skirt",
+      "display_name": "Skirt Steak",
+      "cook_class": "thin_quick",
+      "typical_thickness_in": 0.75,
+      "notes": "Thin cut with strong beef flavor; cooks quickly.",
+      "typical_weight_oz": 8
+    },
+    {
+      "cut_id": "bone_in_ribeye",
+      "display_name": "Bone-In Ribeye",
+      "cook_class": "bone_in",
+      "typical_thickness_in": 1.5,
+      "notes": "Ribeye with bone attached; often needs more oven time than boneless.",
+      "typical_weight_oz": 18
+    },
+    {
+      "cut_id": "bone_in_strip",
+      "display_name": "Bone-In NY Strip",
+      "cook_class": "bone_in",
+      "typical_thickness_in": 1.25,
+      "notes": "Strip steak with bone-in profile and moderate carryover.",
+      "typical_weight_oz": 16
+    }
+  ],
+  "methods": [
+    {
+      "method_id": "sear_then_oven",
+      "display_name": "Sear then Oven Finish",
+      "default_oven_mode": "bake",
+      "default_pan": "cast_iron",
+      "notes": "Typically sear on stovetop, then finish in oven. Time models often represent oven portion after sear."
+    },
+    {
+      "method_id": "reverse_sear",
+      "display_name": "Reverse Sear",
+      "default_oven_mode": "bake",
+      "default_pan": "wire_rack",
+      "notes": "Low oven to near pull temp, then sear briefly."
+    },
+    {
+      "method_id": "broil",
+      "display_name": "Broil",
+      "default_oven_mode": "broil",
+      "default_pan": "sheet_pan",
+      "notes": "High radiant heat; very sensitive to rack height and steak thickness."
+    }
+  ],
+  "doneness_targets": [
+    {
+      "doneness_id": "rare",
+      "target_temp_f": 125,
+      "pull_temp_f": 120,
+      "rest_minutes_default": 5
+    },
+    {
+      "doneness_id": "med_rare",
+      "target_temp_f": 130,
+      "pull_temp_f": 125,
+      "rest_minutes_default": 5
+    },
+    {
+      "doneness_id": "medium",
+      "target_temp_f": 140,
+      "pull_temp_f": 135,
+      "rest_minutes_default": 5
+    },
+    {
+      "doneness_id": "med_well",
+      "target_temp_f": 150,
+      "pull_temp_f": 145,
+      "rest_minutes_default": 5
+    },
+    {
+      "doneness_id": "well",
+      "target_temp_f": 160,
+      "pull_temp_f": 155,
+      "rest_minutes_default": 5
+    }
+  ],
+  "cook_time_models": [
+    {
+      "model_id": "marbled_thick_sear_oven_450_bake_0.75_1.0_med_rare_fridge",
+      "cut_class": "marbled_thick",
+      "method_id": "sear_then_oven",
+      "oven_temp_f": 450,
+      "oven_mode": "bake",
+      "thickness_in_min": 0.75,
+      "thickness_in_max": 1,
+      "doneness_id": "med_rare",
+      "time_min_low": 2,
+      "time_min_high": 5,
+      "pull_temp_override_f": 125,
+      "rest_minutes_override": 5,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "cast_iron_preheated",
+      "sear_seconds_per_side": 75,
+      "flip_count": 2,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Time refers to oven portion after sear."
+    },
+    {
+      "model_id": "marbled_thick_sear_oven_450_bake_1.0_1.25_med_rare_fridge",
+      "cut_class": "marbled_thick",
+      "method_id": "sear_then_oven",
+      "oven_temp_f": 450,
+      "oven_mode": "bake",
+      "thickness_in_min": 1,
+      "thickness_in_max": 1.25,
+      "doneness_id": "med_rare",
+      "time_min_low": 4,
+      "time_min_high": 7,
+      "pull_temp_override_f": 125,
+      "rest_minutes_override": 5,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "cast_iron_preheated",
+      "sear_seconds_per_side": 90,
+      "flip_count": 2,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Time refers to oven portion after sear."
+    },
+    {
+      "model_id": "marbled_thick_sear_oven_450_bake_1.25_1.5_med_rare_fridge",
+      "cut_class": "marbled_thick",
+      "method_id": "sear_then_oven",
+      "oven_temp_f": 450,
+      "oven_mode": "bake",
+      "thickness_in_min": 1.25,
+      "thickness_in_max": 1.5,
+      "doneness_id": "med_rare",
+      "time_min_low": 6,
+      "time_min_high": 10,
+      "pull_temp_override_f": 125,
+      "rest_minutes_override": 5,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "cast_iron_preheated",
+      "sear_seconds_per_side": 105,
+      "flip_count": 2,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Time refers to oven portion after sear."
+    },
+    {
+      "model_id": "lean_tender_reverse_250_bake_1.25_1.5_med_rare_fridge",
+      "cut_class": "lean_tender",
+      "method_id": "reverse_sear",
+      "oven_temp_f": 250,
+      "oven_mode": "bake",
+      "thickness_in_min": 1.25,
+      "thickness_in_max": 1.5,
+      "doneness_id": "med_rare",
+      "time_min_low": 18,
+      "time_min_high": 28,
+      "pull_temp_override_f": 120,
+      "rest_minutes_override": 5,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "wire_rack",
+      "sear_seconds_per_side": 60,
+      "flip_count": 1,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Oven time until pull temp; then sear quickly."
+    },
+    {
+      "model_id": "lean_tender_reverse_250_bake_1.5_2.0_med_rare_fridge",
+      "cut_class": "lean_tender",
+      "method_id": "reverse_sear",
+      "oven_temp_f": 250,
+      "oven_mode": "bake",
+      "thickness_in_min": 1.5,
+      "thickness_in_max": 2,
+      "doneness_id": "med_rare",
+      "time_min_low": 25,
+      "time_min_high": 40,
+      "pull_temp_override_f": 120,
+      "rest_minutes_override": 5,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "wire_rack",
+      "sear_seconds_per_side": 60,
+      "flip_count": 1,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Oven time until pull temp; then sear quickly."
+    },
+    {
+      "model_id": "thin_quick_broil_500_broil_0.5_0.75_med_rare_fridge",
+      "cut_class": "thin_quick",
+      "method_id": "broil",
+      "oven_temp_f": 500,
+      "oven_mode": "broil",
+      "thickness_in_min": 0.5,
+      "thickness_in_max": 0.75,
+      "doneness_id": "med_rare",
+      "time_min_low": 4,
+      "time_min_high": 7,
+      "pull_temp_override_f": 125,
+      "rest_minutes_override": 3,
+      "start_temp_assumption": "fridge",
+      "pan_assumption": "sheet_pan",
+      "sear_seconds_per_side": null,
+      "flip_count": 1,
+      "data_source": "starter_baseline",
+      "confidence": "low",
+      "notes": "Total broil time; depends heavily on rack height; flip once."
+    }
+  ],
+  "time_adjustments": [
+    {
+      "adjustment_id": "convection_speedup",
+      "applies_to": {
+        "oven_mode": "convection"
+      },
+      "factor": 0.9,
+      "delta_minutes": null,
+      "priority": 10,
+      "notes": "Convection often cooks faster."
+    },
+    {
+      "adjustment_id": "tempered_speedup",
+      "applies_to": {
+        "start_temp_assumption": "tempered"
+      },
+      "factor": 0.85,
+      "delta_minutes": null,
+      "priority": 20,
+      "notes": "Warmer starting temp reduces time to endpoint."
+    },
+    {
+      "adjustment_id": "bone_in_slowdown",
+      "applies_to": {
+        "cut_class": "bone_in"
+      },
+      "factor": 1.1,
+      "delta_minutes": null,
+      "priority": 30,
+      "notes": "Bone-in can increase time."
+    },
+    {
+      "adjustment_id": "sheet_pan_slowdown",
+      "applies_to": {
+        "pan_assumption": "sheet_pan"
+      },
+      "factor": 1.05,
+      "delta_minutes": null,
+      "priority": 40,
+      "notes": "Sheet pan can be slower than preheated cast iron for finishing."
+    }
+  ]
+}
