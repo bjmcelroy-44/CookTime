@@ -753,25 +753,25 @@ def inject_ui_style() -> None:
     st.markdown(
         """
         <style>
-        @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Oswald:wght@500;600;700&display=swap");
 
         :root {
-          --bg-top: #f8efe2;
-          --bg-mid: #f4e8d8;
-          --bg-bottom: #ecdecb;
-          --hero-ink: #2a1f1a;
-          --hero-sub: #5f4a40;
-          --card: #fff9f1;
-          --card-soft: #fffdf9;
-          --ink: #221814;
-          --muted: #5a473d;
-          --accent: #8c1f2d;
-          --accent-2: #a23a33;
-          --accent-soft: #f3e3d2;
-          --slider-accent: #7e2c29;
-          --stroke: rgba(80, 51, 43, 0.22);
-          --line-strong: rgba(80, 51, 43, 0.34);
-          --shadow: 0 14px 30px rgba(56, 32, 23, 0.14);
+          --bg-top: #f3ece2;
+          --bg-mid: #eee4d7;
+          --bg-bottom: #e9ddcd;
+          --hero-ink: #2c201d;
+          --hero-sub: #5e4d45;
+          --card: #f2ede7;
+          --card-soft: #f8f3ec;
+          --ink: #2e211d;
+          --muted: #66524a;
+          --accent: #9a2937;
+          --accent-2: #8a2532;
+          --accent-soft: #f2d8cb;
+          --slider-accent: #9a2937;
+          --stroke: rgba(118, 92, 78, 0.28);
+          --line-strong: rgba(92, 68, 58, 0.34);
+          --shadow: 0 10px 22px rgba(56, 38, 29, 0.08);
         }
 
         [data-testid="stHeader"], [data-testid="stToolbar"], #MainMenu, footer {
@@ -781,119 +781,100 @@ def inject_ui_style() -> None:
         [data-testid="stAppViewContainer"] {
           --primary-color: var(--accent);
           background:
-            radial-gradient(circle at 14% 0%, rgba(169, 78, 60, 0.16), transparent 40%),
-            radial-gradient(circle at 95% 14%, rgba(150, 84, 68, 0.14), transparent 42%),
-            linear-gradient(165deg, var(--bg-top) 0%, var(--bg-mid) 62%, var(--bg-bottom) 100%);
+            radial-gradient(circle at 16% 0%, rgba(154, 41, 55, 0.08), transparent 42%),
+            radial-gradient(circle at 92% 20%, rgba(132, 78, 62, 0.1), transparent 44%),
+            linear-gradient(168deg, var(--bg-top) 0%, var(--bg-mid) 58%, var(--bg-bottom) 100%);
         }
 
         [data-testid="stAppViewContainer"] .main .block-container {
-          max-width: 1080px;
-          padding-top: 0.5rem;
-          padding-bottom: 1.2rem;
+          max-width: 1140px;
+          padding-top: 1rem;
+          padding-bottom: 1.4rem;
         }
 
         html, body, [data-testid="stAppViewContainer"] * {
-          font-family: "Barlow Condensed", "Segoe UI", sans-serif;
+          font-family: "Manrope", "Segoe UI", sans-serif;
         }
 
         .hero-panel {
-          border: 1px solid var(--stroke);
-          border-radius: 12px;
-          padding: 12px 18px 10px;
-          margin-bottom: 14px;
-          background:
-            radial-gradient(circle at 50% -140%, rgba(140, 31, 45, 0.08), transparent 58%),
-            linear-gradient(164deg, #fff9f1 0%, #f6eadb 58%, #f1e2d0 100%);
-          box-shadow: var(--shadow);
+          border: 0;
+          border-radius: 0;
+          padding: 0;
+          margin-bottom: 1.1rem;
+          background: transparent;
+          box-shadow: none;
         }
 
         .hero-kicker {
           margin: 0;
-          text-align: center;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.16em;
+          text-align: left;
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--muted);
-          transform: none;
+          color: var(--accent);
         }
 
         .hero-title {
-          margin: 4px 0 0;
-          text-align: center;
-          font-family: "Cinzel", "Times New Roman", serif;
-          font-size: clamp(30px, 4.9vw, 56px);
-          line-height: 0.98;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--ink);
-          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-        }
-
-        .hero-meta {
-          margin: 0;
-          padding-top: 5px;
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          align-items: center;
-          gap: 8px;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--muted);
-        }
-
-        .hero-meta span:nth-child(1) {
+          margin: 6px 0 0;
           text-align: left;
+          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-size: clamp(38px, 5.2vw, 70px);
+          line-height: 1.05;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          text-transform: none;
+          color: var(--ink);
         }
 
-        .hero-meta span:nth-child(2) {
-          text-align: center;
-        }
-
-        .hero-meta span:nth-child(3) {
-          text-align: right;
+        .hero-sub {
+          margin: 10px 0 0;
+          max-width: 860px;
+          text-align: left;
+          font-size: clamp(18px, 2.2vw, 22px);
+          line-height: 1.45;
+          font-weight: 600;
+          color: var(--hero-sub);
         }
 
         @media (max-width: 760px) {
           .hero-panel {
-            padding: 10px 12px 9px;
+            margin-bottom: 0.85rem;
           }
 
           .hero-kicker {
-            font-size: 10px;
-            letter-spacing: 0.12em;
+            font-size: 12px;
+            letter-spacing: 0.06em;
           }
 
           .hero-title {
-            font-size: clamp(28px, 8.5vw, 42px);
-            letter-spacing: 0.08em;
+            font-size: clamp(34px, 10.2vw, 52px);
+            letter-spacing: -0.02em;
           }
 
-          .hero-meta {
-            font-size: 10px;
-            letter-spacing: 0.11em;
+          .hero-sub {
+            margin-top: 8px;
+            font-size: 18px;
+            line-height: 1.4;
           }
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] {
           border: 1px solid var(--stroke) !important;
           background: var(--card) !important;
-          border-radius: 12px !important;
+          border-radius: 18px !important;
           box-shadow: var(--shadow) !important;
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] > div {
-          padding-top: 0.45rem !important;
-          padding-bottom: 0.45rem !important;
+          padding-top: 0.55rem !important;
+          padding-bottom: 0.55rem !important;
         }
 
         /* Nested bordered containers are used as segmented input groups. */
         [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlockBorderWrapper"] {
           border-width: 0.9px !important;
-          border-radius: 8px !important;
+          border-radius: 12px !important;
           background: var(--card-soft) !important;
           box-shadow: none !important;
         }
@@ -915,38 +896,38 @@ def inject_ui_style() -> None:
         }
 
         .card-title {
-          margin: 0 0 6px;
-          font-family: "Oswald", "Segoe UI", sans-serif;
-          font-size: 29px;
-          line-height: 1;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
+          margin: 0 0 10px;
+          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-size: 36px;
+          line-height: 1.1;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          text-transform: none;
           color: var(--ink);
         }
 
         .field-label {
-          margin: 0 0 4px;
-          font-family: "Oswald", "Segoe UI", sans-serif;
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: 0.12em;
+          margin: 0 0 6px;
+          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           color: var(--muted);
         }
 
         .field-note {
-          margin-top: 1px;
+          margin-top: 2px;
           margin-bottom: 2px;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           color: var(--muted);
         }
 
         .slider-readout {
           margin: 0;
-          font-size: 12px;
-          font-weight: 800;
+          font-size: 15px;
+          font-weight: 700;
           letter-spacing: 0.01em;
           color: var(--ink);
         }
@@ -1026,22 +1007,22 @@ def inject_ui_style() -> None:
 
         /* Cohesive slider colors (less neon, more brand-muted). */
         div[data-baseweb="slider"] > div > div:nth-child(1) {
-          background: rgba(92, 63, 50, 0.24) !important;
-          height: 4px !important;
+          background: rgba(97, 77, 68, 0.26) !important;
+          height: 5px !important;
         }
 
         div[data-baseweb="slider"] > div > div:nth-child(2) {
-          background: linear-gradient(90deg, var(--slider-accent), #995047) !important;
-          height: 4px !important;
+          background: linear-gradient(90deg, var(--slider-accent), #ad3140) !important;
+          height: 5px !important;
         }
 
         div[data-baseweb="slider"] [role="slider"] {
-          width: 22px !important;
-          height: 22px !important;
+          width: 24px !important;
+          height: 24px !important;
           background: var(--slider-accent) !important;
-          border: 2px solid #f3e3d2 !important;
+          border: 2px solid #f4e8db !important;
           border-radius: 999px !important;
-          box-shadow: 0 1px 4px rgba(58, 28, 21, 0.28) !important;
+          box-shadow: 0 1px 5px rgba(66, 34, 27, 0.24) !important;
         }
 
         div[data-testid="stSlider"] p,
@@ -1074,21 +1055,23 @@ def inject_ui_style() -> None:
         }
 
         div[data-testid="stButton"] > button {
-          font-family: "Barlow Condensed", "Segoe UI", sans-serif !important;
+          font-family: "Manrope", "Segoe UI", sans-serif !important;
           font-weight: 700 !important;
-          letter-spacing: 0.01em;
-          border-radius: 12px !important;
+          font-size: 18px !important;
+          letter-spacing: -0.01em;
+          border-radius: 14px !important;
           border: 1px solid var(--stroke) !important;
           background: var(--card-soft) !important;
           color: var(--ink) !important;
+          min-height: 48px !important;
         }
 
         div[data-testid="stButton"] > button[kind="primary"] {
           font-weight: 800 !important;
-          border-color: rgba(140, 31, 45, 0.5) !important;
-          background: linear-gradient(155deg, #f8eee2, #eedecb 70%, #e6d2bc) !important;
-          color: #2a1f1a !important;
-          box-shadow: 0 8px 18px rgba(74, 43, 31, 0.16) !important;
+          border-color: rgba(130, 34, 44, 0.58) !important;
+          background: linear-gradient(155deg, #5f1f2b 0%, #8d2b39 52%, #b33a45 100%) !important;
+          color: #fff7f2 !important;
+          box-shadow: 0 8px 16px rgba(99, 30, 39, 0.2) !important;
         }
 
         div[data-testid="stRadio"] > div {
@@ -1096,50 +1079,71 @@ def inject_ui_style() -> None:
         }
 
         .result-label {
-          margin: 0 0 2px;
-          font-size: 22px;
+          margin: 0 0 4px;
+          font-size: 24px;
           font-weight: 700;
           color: var(--ink);
         }
 
         .result-time {
-          margin: 0 0 10px;
+          margin: 0 0 12px;
+          display: flex;
+          align-items: flex-end;
+          gap: 10px;
+          line-height: 1;
+          flex-wrap: wrap;
+        }
+
+        .result-time-number {
+          margin: 0;
           font-family: "Oswald", "Segoe UI", sans-serif;
-          font-size: clamp(62px, 8.5vw, 96px);
-          line-height: 0.9;
+          font-size: clamp(92px, 11.2vw, 154px);
+          line-height: 0.82;
           font-weight: 700;
-          letter-spacing: -0.015em;
+          letter-spacing: -0.03em;
           color: var(--accent);
-          text-shadow: 0 2px 0 rgba(34, 24, 20, 0.12);
+          text-shadow: 0 2px 0 rgba(56, 30, 25, 0.13);
+        }
+
+        .result-time-unit {
+          margin: 0;
+          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-size: clamp(28px, 3.4vw, 44px);
+          line-height: 1;
+          font-weight: 800;
+          letter-spacing: -0.015em;
+          color: var(--ink);
+          padding-bottom: 8px;
         }
 
         .step-title {
-          margin: 8px 0 6px;
-          font-family: "Oswald", "Segoe UI", sans-serif;
-          font-size: 14px;
-          letter-spacing: 0.11em;
-          text-transform: uppercase;
-          color: var(--muted);
+          margin: 8px 0 8px;
+          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-size: 26px;
+          letter-spacing: -0.01em;
+          text-transform: none;
+          color: var(--ink);
+          font-weight: 800;
         }
 
         .step-box {
           border: 1px solid var(--stroke);
-          border-radius: 12px;
+          border-radius: 14px;
           background: var(--card-soft);
-          padding: 11px 12px;
-          margin-bottom: 7px;
-          font-size: 16px;
+          padding: 12px 13px;
+          margin-bottom: 8px;
+          font-size: 18px;
           line-height: 1.5;
           color: var(--ink);
         }
 
         .quick-summary {
           border: 1px solid rgba(95, 64, 54, 0.25);
-          border-radius: 12px;
+          border-radius: 14px;
           background: var(--card-soft);
-          padding: 8px 10px;
-          margin-top: 2px;
-          font-size: 15px;
+          padding: 10px 12px;
+          margin-top: 3px;
+          font-size: 17px;
           line-height: 1.5;
           color: var(--ink);
         }
@@ -1149,8 +1153,8 @@ def inject_ui_style() -> None:
         }
 
         .disclaimer {
-          margin-top: 6px;
-          font-size: 12px;
+          margin-top: 8px;
+          font-size: 14px;
           color: var(--muted);
         }
 
@@ -1173,7 +1177,16 @@ def inject_ui_style() -> None:
 
         @media (max-width: 760px) {
           .result-time {
-            font-size: clamp(54px, 14vw, 84px);
+            gap: 6px;
+          }
+
+          .result-time-number {
+            font-size: clamp(72px, 20vw, 120px);
+          }
+
+          .result-time-unit {
+            font-size: clamp(24px, 7.2vw, 36px);
+            padding-bottom: 4px;
           }
         }
 
@@ -1221,9 +1234,9 @@ def apply_cut_defaults(starter_data: Dict[str, Any], cut_id: str) -> None:
     st.session_state.selected_cut_id = cut_id
     st.session_state.thickness_in = thickness
     st.session_state.weight_custom = False
-    st.session_state.weight_slider = float(
-        round(estimate_selection_weight_oz(starter_data, cut_id, thickness) * 2) / 2
-    )
+    default_weight = float(round(estimate_selection_weight_oz(starter_data, cut_id, thickness) * 2) / 2)
+    st.session_state.weight_slider = default_weight
+    st.session_state.weight_auto_anchor = (cut_id, round(thickness, 2))
 
 
 def initialize_state(starter_data: Dict[str, Any]) -> None:
@@ -1263,6 +1276,11 @@ def initialize_state(starter_data: Dict[str, Any]) -> None:
             )
             / 2
         )
+    if "weight_auto_anchor" not in st.session_state:
+        st.session_state.weight_auto_anchor = (
+            st.session_state.selected_cut_id,
+            round(float(st.session_state.thickness_in), 2),
+        )
 
 
 def bordered_container():
@@ -1287,9 +1305,9 @@ def render_hero() -> None:
     st.markdown(
         """
         <div class="hero-panel">
-          <p class="hero-kicker">Better steak starts with better timing</p>
-          <h1 class="hero-title">Select. Sear. Serve.</h1>
-          <p class="hero-meta"><span></span><span>Cook Time Estimater</span><span></span></p>
+          <p class="hero-kicker">Fast, clear, and actually useful</p>
+          <h1 class="hero-title">Let's time your next steak.</h1>
+          <p class="hero-sub">Answer a few simple questions about cut, doneness, thickness, and oven setup. You'll get a practical cook time plus clear finishing steps.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1308,13 +1326,12 @@ def render_result_card(result: Dict[str, Any], oven_temp_f: int, oven_mode: str)
         <div class="cooking-card-wrap">
           <div class="cooking-card-main">
             <p class="result-label">Estimated cook time in the oven is:</p>
-            <p class="result-time">{result['time_low']} minutes</p>
+            <p class="result-time"><span class="result-time-number">{result['time_low']}</span><span class="result-time-unit">minutes</span></p>
             <p class="step-title">Step-by-step</p>
-            <div class="step-box"><b>Step 1:</b> Preheat oven to {oven_temp_f}F in {oven_mode} mode. Set steak on a wire cooling rack over a sheet pan so it sits above the hot surface and cooks more evenly.</div>
-            <div class="step-box"><b>Step 2:</b> Cook in the oven for about {result['time_low']} minutes. This uses the low-end estimate, so start temping the steak right at that time.</div>
-            <div class="step-box"><b>Step 3:</b> Pull at 125F and rest for 5 minutes. While it rests, heat a skillet on high (use good ventilation, as it can get smoky), add tallow or a high smoke-point oil, then sear 90 seconds per side.</div>
-            <div class="step-box"><b>Step 4:</b> Slice against the grain and serve.</div>
-            <div class="quick-summary"><b>Quick summary:</b> Oven to temp, rack + sheet pan, cook to time, pull at 125F, rest 5 min, then sear 90 sec per side.</div>
+            <div class="step-box"><b>Step 1:</b> Preheat to {oven_temp_f}F ({oven_mode}) and place steak on a wire rack over a sheet pan.</div>
+            <div class="step-box"><b>Step 2:</b> Oven cook about {result['time_low']} minutes, then start checking temp immediately.</div>
+            <div class="step-box"><b>Step 3:</b> Pull at 125F, rest 5 minutes, then sear in a very hot skillet with tallow or high smoke-point oil for 90 seconds per side (use good ventilation).</div>
+            <div class="quick-summary"><b>Quick summary:</b> Rack setup, oven for {result['time_low']} min, pull 125F, rest 5 min, sear 90 sec/side.</div>
           </div>
           <div class="cooking-card-foot">
             <p class="disclaimer">Oven temps can run hot or cool. Verify doneness with an instant-read thermometer.</p>
@@ -1429,8 +1446,12 @@ def main() -> None:
                     auto_weight = estimate_selection_weight_oz(
                         starter_data, st.session_state.selected_cut_id, float(thickness_in)
                     )
+                    default_weight = float(round(auto_weight * 2) / 2)
+                    auto_anchor = (st.session_state.selected_cut_id, round(float(thickness_in), 2))
                     if not st.session_state.weight_custom:
-                        st.session_state.weight_slider = float(round(auto_weight * 2) / 2)
+                        if st.session_state.get("weight_auto_anchor") != auto_anchor:
+                            st.session_state.weight_slider = default_weight
+                            st.session_state.weight_auto_anchor = auto_anchor
 
                     st.markdown('<p class="field-label">Steak weight</p>', unsafe_allow_html=True)
                     st.session_state.weight_slider = float(
@@ -1446,13 +1467,16 @@ def main() -> None:
                             label_visibility="collapsed",
                         )
                     )
-                    if not st.session_state.weight_custom and abs(weight_slider - auto_weight) > 0.01:
-                        st.session_state.weight_custom = True
+                    if not st.session_state.weight_custom:
+                        if abs(weight_slider - default_weight) > 0.01:
+                            st.session_state.weight_custom = True
+                        else:
+                            st.session_state.weight_auto_anchor = auto_anchor
 
                     weight_mode_note = (
-                        f"Custom (default {auto_weight:.1f} oz)"
+                        f"Custom (default {default_weight:.1f} oz)"
                         if st.session_state.weight_custom
-                        else f"Default {auto_weight:.1f} oz"
+                        else f"Default {default_weight:.1f} oz"
                     )
                     st.markdown(
                         f'<p class="field-note">Weight: {weight_slider:.1f} oz • {weight_mode_note}</p>',
