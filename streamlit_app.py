@@ -1265,6 +1265,24 @@ def initialize_state(starter_data: Dict[str, Any]) -> None:
         )
 
 
+def bordered_container():
+    try:
+        return st.container(border=True)
+    except TypeError:
+        # Backward compatibility for older Streamlit versions without border support.
+        return st.container()
+
+
+def safe_rerun() -> None:
+    rerun_fn = getattr(st, "rerun", None)
+    if callable(rerun_fn):
+        rerun_fn()
+        return
+    legacy_rerun = getattr(st, "experimental_rerun", None)
+    if callable(legacy_rerun):
+        legacy_rerun()
+
+
 def render_hero() -> None:
     st.markdown(
         """
@@ -1328,7 +1346,7 @@ def main() -> None:
     left_col, right_col = st.columns([1.04, 0.96], gap="medium")
 
     with left_col:
-        with st.container(border=True):
+        with bordered_container():
             st.markdown('<p class="card-title">Inputs</p>', unsafe_allow_html=True)
 
             st.markdown('<p class="field-label">Steak cut</p>', unsafe_allow_html=True)
@@ -1347,11 +1365,11 @@ def main() -> None:
                         use_container_width=True,
                     ):
                         apply_cut_defaults(starter_data, cut["cut_id"])
-                        st.rerun()
+                        safe_rerun()
 
             selected_cut = get_cut_by_id(starter_data, st.session_state.selected_cut_id)
 
-            with st.container(border=True):
+            with bordered_container():
                 st.markdown('<p class="field-label">Doneness</p>', unsafe_allow_html=True)
                 doneness_order = ["rare", "med_rare", "medium", "med_well", "well"]
                 doneness_targets = sorted(
@@ -1389,7 +1407,7 @@ def main() -> None:
 
             c1, c2 = st.columns(2, gap="small")
             with c1:
-                with st.container(border=True):
+                with bordered_container():
                     st.markdown('<p class="field-label">Thickness</p>', unsafe_allow_html=True)
                     thickness_in = float(
                         st.slider(
@@ -1407,7 +1425,7 @@ def main() -> None:
                     )
 
             with c2:
-                with st.container(border=True):
+                with bordered_container():
                     auto_weight = estimate_selection_weight_oz(
                         starter_data, st.session_state.selected_cut_id, float(thickness_in)
                     )
@@ -1441,7 +1459,7 @@ def main() -> None:
                         unsafe_allow_html=True,
                     )
 
-            with st.container(border=True):
+            with bordered_container():
                 st.markdown('<p class="field-label">Oven temperature</p>', unsafe_allow_html=True)
                 oven_temp_f = int(
                     st.slider(
@@ -1465,7 +1483,7 @@ def main() -> None:
 
             c3, c4 = st.columns(2, gap="small")
             with c3:
-                with st.container(border=True):
+                with bordered_container():
                     st.markdown('<p class="field-label">Oven mode</p>', unsafe_allow_html=True)
                     oven_mode_options = ["bake", "convection"]
                     oven_mode_index = (
@@ -1481,7 +1499,7 @@ def main() -> None:
                     )
 
             with c4:
-                with st.container(border=True):
+                with bordered_container():
                     st.markdown('<p class="field-label">Cooking method</p>', unsafe_allow_html=True)
                     st.markdown(
                         '<div class="method-static">Reverse sear (oven first, sear after)</div>',
@@ -1523,7 +1541,7 @@ def main() -> None:
             result = resolve_reverse_sear_estimate(starter_data, calibration_data, inputs)
 
     with right_col:
-        with st.container(border=True):
+        with bordered_container():
             render_result_card(result, int(st.session_state.oven_temp_f), st.session_state.oven_mode)
 
 
