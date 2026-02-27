@@ -1497,10 +1497,6 @@ def main() -> None:
                     )
                 )
                 st.markdown(
-                    f'<p class="slider-readout">Oven temp: {oven_temp_f}F</p>',
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
                     '<div class="major-ticks"><span class="edge-left" style="--pos:0">250</span><span style="--pos:0.2">300</span><span style="--pos:0.4">350</span><span style="--pos:0.6">400</span><span style="--pos:0.8">450</span><span class="edge-right" style="--pos:1">500</span></div>',
                     unsafe_allow_html=True,
                 )
