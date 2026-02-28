@@ -48,7 +48,7 @@
       "cook_class": "marbled_thick",
       "typical_thickness_in": 1.25,
       "notes": "High marbling; forgiving; stronger carryover.",
-      "typical_weight_oz": 14
+      "typical_weight_oz": 16
     },
     {
       "cut_id": "strip",
@@ -56,7 +56,7 @@
       "cook_class": "marbled_thick",
       "typical_thickness_in": 1,
       "notes": "Balanced marbling; great crust.",
-      "typical_weight_oz": 12
+      "typical_weight_oz": 14
     },
     {
       "cut_id": "tenderloin",
@@ -72,7 +72,7 @@
       "cook_class": "medium_lean",
       "typical_thickness_in": 1.5,
       "notes": "Center-cut top sirloin, thicker baseball style; lean and cooks evenly with controlled heat.",
-      "typical_weight_oz": 10
+      "typical_weight_oz": 8
     },
     {
       "cut_id": "t_bone",
@@ -80,7 +80,7 @@
       "cook_class": "bone_in",
       "typical_thickness_in": 1.25,
       "notes": "Bone-in; two muscles; time varies.",
-      "typical_weight_oz": 18
+      "typical_weight_oz": 30
     },
     {
       "cut_id": "flank",
@@ -112,7 +112,7 @@
       "cook_class": "bone_in",
       "typical_thickness_in": 1.5,
       "notes": "Ribeye with bone attached; often needs more oven time than boneless.",
-      "typical_weight_oz": 18
+      "typical_weight_oz": 24
     },
     {
       "cut_id": "bone_in_strip",
@@ -120,7 +120,31 @@
       "cook_class": "bone_in",
       "typical_thickness_in": 1.25,
       "notes": "Strip steak with bone-in profile and moderate carryover.",
-      "typical_weight_oz": 16
+      "typical_weight_oz": 18
+    },
+    {
+      "cut_id": "porterhouse",
+      "display_name": "Porterhouse",
+      "cook_class": "bone_in",
+      "typical_thickness_in": 1.75,
+      "notes": "Larger bone-in strip + tenderloin side; treat like thick bone-in cut.",
+      "typical_weight_oz": 30
+    },
+    {
+      "cut_id": "flat_iron",
+      "display_name": "Flat Iron",
+      "cook_class": "medium_lean",
+      "typical_thickness_in": 1.0,
+      "notes": "Tender shoulder steak; moderate marbling and fairly even thickness.",
+      "typical_weight_oz": 8
+    },
+    {
+      "cut_id": "denver",
+      "display_name": "Denver",
+      "cook_class": "medium_lean",
+      "typical_thickness_in": 1.0,
+      "notes": "Chuck-derived steak with good marbling; medium thickness profile.",
+      "typical_weight_oz": 8
     }
   ],
   "methods": [

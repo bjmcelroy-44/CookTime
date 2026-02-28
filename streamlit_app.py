@@ -613,6 +613,7 @@ def resolve_reverse_sear_estimate(
         return {"status": "error", "message": "Invalid doneness."}
 
     pull_temp_f = int(doneness["pull_temp_f"])
+    target_temp_f = int(doneness["target_temp_f"])
     rest_minutes = int(doneness.get("rest_minutes_default", 5))
 
     specialized = specialized_reverse_sear_range(
@@ -676,6 +677,7 @@ def resolve_reverse_sear_estimate(
         "status": "ok",
         "time_low": low,
         "time_high": high,
+        "target_temp_f": target_temp_f,
         "pull_temp_f": pull_temp_f,
         "rest_minutes": rest_minutes,
         "instruction": instruction,
@@ -772,6 +774,7 @@ def inject_ui_style() -> None:
           --stroke: rgba(118, 92, 78, 0.28);
           --line-strong: rgba(92, 68, 58, 0.34);
           --shadow: 0 10px 22px rgba(56, 38, 29, 0.08);
+          --slider-thumb-size: 24px;
         }
 
         [data-testid="stHeader"], [data-testid="stToolbar"], #MainMenu, footer {
@@ -788,8 +791,8 @@ def inject_ui_style() -> None:
 
         [data-testid="stAppViewContainer"] .main .block-container {
           max-width: 1140px;
-          padding-top: 1rem;
-          padding-bottom: 1.4rem;
+          padding-top: 0.28rem;
+          padding-bottom: 0.9rem;
         }
 
         html, body, [data-testid="stAppViewContainer"] * {
@@ -800,7 +803,7 @@ def inject_ui_style() -> None:
           border: 0;
           border-radius: 0;
           padding: 0;
-          margin-bottom: 1.1rem;
+          margin-bottom: 0.56rem;
           background: transparent;
           box-shadow: none;
         }
@@ -816,7 +819,7 @@ def inject_ui_style() -> None:
         }
 
         .hero-title {
-          margin: 6px 0 0;
+          margin: 2px 0 0;
           text-align: left;
           font-family: "Manrope", "Segoe UI", sans-serif;
           font-size: clamp(38px, 5.2vw, 70px);
@@ -828,18 +831,18 @@ def inject_ui_style() -> None:
         }
 
         .hero-sub {
-          margin: 10px 0 0;
+          margin: 5px 0 0;
           max-width: 860px;
           text-align: left;
           font-size: clamp(18px, 2.2vw, 22px);
-          line-height: 1.45;
+          line-height: 1.35;
           font-weight: 600;
           color: var(--hero-sub);
         }
 
         @media (max-width: 760px) {
           .hero-panel {
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.55rem;
           }
 
           .hero-kicker {
@@ -853,9 +856,9 @@ def inject_ui_style() -> None:
           }
 
           .hero-sub {
-            margin-top: 8px;
+            margin-top: 5px;
             font-size: 18px;
-            line-height: 1.4;
+            line-height: 1.32;
           }
         }
 
@@ -867,8 +870,8 @@ def inject_ui_style() -> None:
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] > div {
-          padding-top: 0.55rem !important;
-          padding-bottom: 0.55rem !important;
+          padding-top: 0.36rem !important;
+          padding-bottom: 0.36rem !important;
         }
 
         /* Nested bordered containers are used as segmented input groups. */
@@ -880,8 +883,8 @@ def inject_ui_style() -> None:
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlockBorderWrapper"] > div {
-          padding-top: 0.22rem !important;
-          padding-bottom: 0.22rem !important;
+          padding-top: 0.14rem !important;
+          padding-bottom: 0.14rem !important;
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stMarkdown"] p,
@@ -907,7 +910,7 @@ def inject_ui_style() -> None:
         }
 
         .field-label {
-          margin: 0 0 6px;
+          margin: 0 0 4px;
           font-family: "Manrope", "Segoe UI", sans-serif;
           font-size: 13px;
           font-weight: 800;
@@ -942,22 +945,22 @@ def inject_ui_style() -> None:
         }
 
         .doneness-ticks {
-          height: 20px;
-          margin-top: 4px;
-          margin-bottom: 4px;
+          height: 16px;
+          margin-top: 2px;
+          margin-bottom: 2px;
         }
 
         .major-ticks {
-          height: 20px;
-          margin-top: 4px;
-          margin-bottom: 4px;
+          height: 16px;
+          margin-top: 2px;
+          margin-bottom: 2px;
         }
 
         .doneness-ticks span,
         .major-ticks span {
           position: absolute;
           top: 0;
-          left: calc(11px + (100% - 22px) * var(--pos));
+          left: calc((var(--slider-thumb-size) / 2) + (100% - var(--slider-thumb-size)) * var(--pos));
           transform: translateX(-50%);
           white-space: nowrap;
           color: var(--muted);
@@ -965,13 +968,13 @@ def inject_ui_style() -> None:
         }
 
         .doneness-ticks span {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 500;
           color: var(--ink);
         }
 
         .major-ticks span {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 500;
           color: var(--ink);
           text-transform: uppercase;
@@ -979,12 +982,21 @@ def inject_ui_style() -> None:
 
         .doneness-ticks span.edge-left,
         .major-ticks span.edge-left {
+          left: 0 !important;
           transform: none;
         }
 
         .doneness-ticks span.edge-right,
         .major-ticks span.edge-right {
+          left: 100% !important;
           transform: translateX(-100%);
+        }
+
+        .axis-spacer {
+          height: 16px;
+          margin-top: 2px;
+          margin-bottom: 2px;
+          visibility: hidden;
         }
 
         div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
@@ -996,7 +1008,7 @@ def inject_ui_style() -> None:
         }
 
         div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-          min-height: 38px;
+          min-height: 42px;
         }
 
         div[data-testid="stSlider"],
@@ -1017,8 +1029,8 @@ def inject_ui_style() -> None:
         }
 
         div[data-baseweb="slider"] [role="slider"] {
-          width: 24px !important;
-          height: 24px !important;
+          width: var(--slider-thumb-size) !important;
+          height: var(--slider-thumb-size) !important;
           background: var(--slider-accent) !important;
           border: 2px solid #f4e8db !important;
           border-radius: 999px !important;
@@ -1072,10 +1084,6 @@ def inject_ui_style() -> None:
           background: linear-gradient(155deg, #5f1f2b 0%, #8d2b39 52%, #b33a45 100%) !important;
           color: #fff7f2 !important;
           box-shadow: 0 8px 16px rgba(99, 30, 39, 0.2) !important;
-        }
-
-        div[data-testid="stRadio"] > div {
-          gap: 0.8rem;
         }
 
         .result-label {
@@ -1190,18 +1198,6 @@ def inject_ui_style() -> None:
           }
         }
 
-        .method-static {
-          min-height: 42px;
-          border: 1px solid var(--stroke);
-          border-radius: 8px;
-          background: var(--card-soft);
-          padding: 0 8px;
-          display: flex;
-          align-items: center;
-          font-size: 13px;
-          font-weight: 500;
-          color: var(--ink);
-        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -1262,6 +1258,8 @@ def initialize_state(starter_data: Dict[str, Any]) -> None:
         st.session_state.oven_mode = get_default_oven_mode(starter_data)
     if "start_temp_assumption" not in st.session_state:
         st.session_state.start_temp_assumption = "fridge"
+    if st.session_state.start_temp_assumption not in {"fridge", "tempered"}:
+        st.session_state.start_temp_assumption = "fridge"
     if "weight_custom" not in st.session_state:
         st.session_state.weight_custom = False
     if "weight_slider" not in st.session_state:
@@ -1301,6 +1299,12 @@ def safe_rerun() -> None:
         legacy_rerun()
 
 
+def on_cut_change(starter_data: Dict[str, Any]) -> None:
+    selected_cut_id = st.session_state.get("selected_cut_id")
+    if isinstance(selected_cut_id, str) and selected_cut_id:
+        apply_cut_defaults(starter_data, selected_cut_id)
+
+
 def render_hero() -> None:
     st.markdown(
         """
@@ -1328,10 +1332,10 @@ def render_result_card(result: Dict[str, Any], oven_temp_f: int, oven_mode: str)
             <p class="result-label">Estimated cook time in the oven is:</p>
             <p class="result-time"><span class="result-time-number">{result['time_low']}</span><span class="result-time-unit">minutes</span></p>
             <p class="step-title">Step-by-step</p>
-            <div class="step-box"><b>Step 1:</b> Preheat to {oven_temp_f}F ({oven_mode}) and place steak on a wire rack over a sheet pan.</div>
+            <div class="step-box"><b>Step 1:</b> Reverse sear (oven first, sear after): preheat to {oven_temp_f}F ({oven_mode}) and place steak on a wire rack over a sheet pan.</div>
             <div class="step-box"><b>Step 2:</b> Oven cook about {result['time_low']} minutes, then start checking temp immediately.</div>
-            <div class="step-box"><b>Step 3:</b> Pull at 125F, rest 5 minutes, then sear in a very hot skillet with tallow or high smoke-point oil for 90 seconds per side (use good ventilation).</div>
-            <div class="quick-summary"><b>Quick summary:</b> Rack setup, oven for {result['time_low']} min, pull 125F, rest 5 min, sear 90 sec/side.</div>
+            <div class="step-box"><b>Step 3:</b> For a final target of {result['target_temp_f']}F, pull at {result['pull_temp_f']}F and rest {result['rest_minutes']} minutes. The steak keeps cooking while it rests (carryover), then sear in a very hot skillet with tallow or high smoke-point oil for 90 seconds per side (use good ventilation).</div>
+            <div class="quick-summary"><b>Quick summary:</b> Rack setup, oven for {result['time_low']} min, pull {result['pull_temp_f']}F, rest {result['rest_minutes']} min, then sear 90 sec/side.</div>
           </div>
           <div class="cooking-card-foot">
             <p class="disclaimer">Oven temps can run hot or cool. Verify doneness with an instant-read thermometer.</p>
@@ -1360,48 +1364,42 @@ def main() -> None:
     render_hero()
 
     cuts = starter_data["cuts"]
-    left_col, right_col = st.columns([1.04, 0.96], gap="medium")
+    with bordered_container():
+        st.markdown('<p class="field-label">Steak cut</p>', unsafe_allow_html=True)
+        cut_id_to_name = {c["cut_id"]: c["display_name"] for c in cuts}
+        cut_ids = [c["cut_id"] for c in cuts]
+        if st.session_state.selected_cut_id not in cut_ids:
+            st.session_state.selected_cut_id = cut_ids[0]
+        st.selectbox(
+            "Steak cut",
+            options=cut_ids,
+            key="selected_cut_id",
+            format_func=lambda cut_id: cut_id_to_name.get(cut_id, cut_id),
+            label_visibility="collapsed",
+            on_change=on_cut_change,
+            args=(starter_data,),
+        )
 
-    with left_col:
-        with bordered_container():
-            st.markdown('<p class="card-title">Inputs</p>', unsafe_allow_html=True)
+        doneness_order = ["rare", "med_rare", "medium", "med_well", "well"]
+        doneness_targets = sorted(
+            starter_data["doneness_targets"],
+            key=lambda d: (
+                doneness_order.index(d["doneness_id"])
+                if d["doneness_id"] in doneness_order
+                else 999,
+                d["target_temp_f"],
+            ),
+        )
+        doneness_ids = [d["doneness_id"] for d in doneness_targets]
+        if st.session_state.doneness_id not in doneness_ids:
+            st.session_state.doneness_id = get_default_doneness_id(starter_data)
 
-            st.markdown('<p class="field-label">Steak cut</p>', unsafe_allow_html=True)
-            for i in range(0, len(cuts), 2):
-                row_cols = st.columns(2, gap="small")
-                for j in range(2):
-                    idx = i + j
-                    if idx >= len(cuts):
-                        continue
-                    cut = cuts[idx]
-                    selected = st.session_state.selected_cut_id == cut["cut_id"]
-                    if row_cols[j].button(
-                        cut["display_name"],
-                        key=f"cut_tile_{cut['cut_id']}",
-                        type="primary" if selected else "secondary",
-                        use_container_width=True,
-                    ):
-                        apply_cut_defaults(starter_data, cut["cut_id"])
-                        safe_rerun()
+        thickness_in = float(st.session_state.thickness_in)
+        d_col, t_col, w_col = st.columns(3, gap="small")
 
-            selected_cut = get_cut_by_id(starter_data, st.session_state.selected_cut_id)
-
+        with d_col:
             with bordered_container():
                 st.markdown('<p class="field-label">Doneness</p>', unsafe_allow_html=True)
-                doneness_order = ["rare", "med_rare", "medium", "med_well", "well"]
-                doneness_targets = sorted(
-                    starter_data["doneness_targets"],
-                    key=lambda d: (
-                        doneness_order.index(d["doneness_id"])
-                        if d["doneness_id"] in doneness_order
-                        else 999,
-                        d["target_temp_f"],
-                    ),
-                )
-                doneness_ids = [d["doneness_id"] for d in doneness_targets]
-                if st.session_state.doneness_id not in doneness_ids:
-                    st.session_state.doneness_id = get_default_doneness_id(starter_data)
-
                 st.select_slider(
                     "Doneness level",
                     options=doneness_ids,
@@ -1412,157 +1410,139 @@ def main() -> None:
                 selected_doneness = next(
                     d for d in doneness_targets if d["doneness_id"] == st.session_state.doneness_id
                 )
-                doneness_label = selected_doneness["doneness_id"].replace("_", " ").title()
                 st.markdown(
                     '<div class="doneness-ticks"><span class="edge-left" style="--pos:0">Rare</span><span style="--pos:0.25">Med Rare</span><span style="--pos:0.5">Med</span><span style="--pos:0.75">Med Well</span><span class="edge-right" style="--pos:1">Well Done</span></div>',
                     unsafe_allow_html=True,
                 )
-                st.markdown(
-                    f'<p class="field-note">Doneness: {doneness_label} • Target {selected_doneness["target_temp_f"]}F / Pull {selected_doneness["pull_temp_f"]}F</p>',
-                    unsafe_allow_html=True,
-                )
 
-            c1, c2 = st.columns(2, gap="small")
-            with c1:
-                with bordered_container():
-                    st.markdown('<p class="field-label">Thickness</p>', unsafe_allow_html=True)
-                    thickness_in = float(
-                        st.slider(
+        with t_col:
+            with bordered_container():
+                st.markdown('<p class="field-label">Thickness</p>', unsafe_allow_html=True)
+                thickness_in = float(
+                    st.slider(
                         "Thickness (in)",
                         min_value=0.5,
                         max_value=2.5,
                         step=0.25,
                         key="thickness_in",
                         label_visibility="collapsed",
-                        )
                     )
-                    st.markdown(
-                        f'<p class="field-note">Thickness: {thickness_in:.2f} in</p>',
-                        unsafe_allow_html=True,
-                    )
+                )
+                st.markdown('<div class="axis-spacer"></div>', unsafe_allow_html=True)
 
-            with c2:
-                with bordered_container():
-                    auto_weight = estimate_selection_weight_oz(
-                        starter_data, st.session_state.selected_cut_id, float(thickness_in)
-                    )
-                    default_weight = float(round(auto_weight * 2) / 2)
-                    auto_anchor = (st.session_state.selected_cut_id, round(float(thickness_in), 2))
-                    if not st.session_state.weight_custom:
-                        if st.session_state.get("weight_auto_anchor") != auto_anchor:
-                            st.session_state.weight_slider = default_weight
-                            st.session_state.weight_auto_anchor = auto_anchor
-
-                    st.markdown('<p class="field-label">Steak weight</p>', unsafe_allow_html=True)
-                    st.session_state.weight_slider = float(
-                        clamp(float(st.session_state.weight_slider), 4, 64)
-                    )
-                    weight_slider = float(
-                        st.slider(
-                            "Steak weight (oz)",
-                            min_value=4.0,
-                            max_value=64.0,
-                            step=0.5,
-                            key="weight_slider",
-                            label_visibility="collapsed",
-                        )
-                    )
-                    if not st.session_state.weight_custom:
-                        if abs(weight_slider - default_weight) > 0.01:
-                            st.session_state.weight_custom = True
-                        else:
-                            st.session_state.weight_auto_anchor = auto_anchor
-
-                    weight_mode_note = (
-                        f"Custom (default {default_weight:.1f} oz)"
-                        if st.session_state.weight_custom
-                        else f"Default {default_weight:.1f} oz"
-                    )
-                    st.markdown(
-                        f'<p class="field-note">Weight: {weight_slider:.1f} oz • {weight_mode_note}</p>',
-                        unsafe_allow_html=True,
-                    )
-
+        with w_col:
             with bordered_container():
-                st.markdown('<p class="field-label">Oven temperature</p>', unsafe_allow_html=True)
-                oven_temp_f = int(
+                auto_weight = estimate_selection_weight_oz(
+                    starter_data, st.session_state.selected_cut_id, float(thickness_in)
+                )
+                default_weight = float(round(auto_weight * 2) / 2)
+                auto_anchor = (st.session_state.selected_cut_id, round(float(thickness_in), 2))
+                if not st.session_state.weight_custom:
+                    if st.session_state.get("weight_auto_anchor") != auto_anchor:
+                        st.session_state.weight_slider = default_weight
+                        st.session_state.weight_auto_anchor = auto_anchor
+
+                st.markdown('<p class="field-label">Steak Weight (oz)</p>', unsafe_allow_html=True)
+                st.session_state.weight_slider = float(
+                    clamp(float(st.session_state.weight_slider), 4, 64)
+                )
+                weight_slider = float(
                     st.slider(
-                        "Oven temperature (F)",
-                        min_value=250,
-                        max_value=500,
-                        step=25,
-                        key="oven_temp_f",
-                        format="%dF",
+                        "Steak Weight (oz)",
+                        min_value=4.0,
+                        max_value=64.0,
+                        step=0.5,
+                        key="weight_slider",
                         label_visibility="collapsed",
                     )
                 )
-                st.markdown(
-                    '<div class="major-ticks"><span class="edge-left" style="--pos:0">250</span><span style="--pos:0.2">300</span><span style="--pos:0.4">350</span><span style="--pos:0.6">400</span><span style="--pos:0.8">450</span><span class="edge-right" style="--pos:1">500</span></div>',
-                    unsafe_allow_html=True,
-                )
+                if not st.session_state.weight_custom:
+                    if abs(weight_slider - default_weight) > 0.01:
+                        st.session_state.weight_custom = True
+                    else:
+                        st.session_state.weight_auto_anchor = auto_anchor
+                st.markdown('<div class="axis-spacer"></div>', unsafe_allow_html=True)
 
-            c3, c4 = st.columns(2, gap="small")
-            with c3:
-                with bordered_container():
-                    st.markdown('<p class="field-label">Oven mode</p>', unsafe_allow_html=True)
-                    oven_mode_options = ["bake", "convection"]
-                    oven_mode_index = (
-                        oven_mode_options.index(st.session_state.oven_mode)
-                        if st.session_state.oven_mode in oven_mode_options
-                        else 0
-                    )
-                    st.session_state.oven_mode = st.selectbox(
-                        "Oven mode",
-                        options=oven_mode_options,
-                        index=oven_mode_index,
-                        label_visibility="collapsed",
-                    )
-
-            with c4:
-                with bordered_container():
-                    st.markdown('<p class="field-label">Cooking method</p>', unsafe_allow_html=True)
-                    st.markdown(
-                        '<div class="method-static">Reverse sear (oven first, sear after)</div>',
-                        unsafe_allow_html=True,
-                    )
-
-            st.markdown('<p class="field-label">Starting temp</p>', unsafe_allow_html=True)
-            start_c1, start_c2 = st.columns(2, gap="small")
-            if start_c1.button(
-                "From fridge",
-                key="start_temp_fridge_btn",
-                type="primary" if st.session_state.start_temp_assumption == "fridge" else "secondary",
-                use_container_width=True,
-            ):
-                st.session_state.start_temp_assumption = "fridge"
-            if start_c2.button(
-                "Tempered",
-                key="start_temp_tempered_btn",
-                type="primary" if st.session_state.start_temp_assumption == "tempered" else "secondary",
-                use_container_width=True,
-            ):
-                st.session_state.start_temp_assumption = "tempered"
-
-            weight_oz: Optional[float]
-            if st.session_state.weight_custom:
-                weight_oz = float(st.session_state.weight_slider)
-            else:
-                weight_oz = None
-
-            inputs = Inputs(
-                cut_id=st.session_state.selected_cut_id,
-                doneness_id=st.session_state.doneness_id,
-                thickness_in=float(st.session_state.thickness_in),
-                weight_oz=weight_oz,
-                oven_temp_f=int(st.session_state.oven_temp_f),
-                oven_mode=st.session_state.oven_mode,
-                start_temp_assumption=st.session_state.start_temp_assumption,
-            )
-            result = resolve_reverse_sear_estimate(starter_data, calibration_data, inputs)
-
-    with right_col:
         with bordered_container():
-            render_result_card(result, int(st.session_state.oven_temp_f), st.session_state.oven_mode)
+            st.markdown('<p class="field-label">Oven temperature</p>', unsafe_allow_html=True)
+            oven_temp_f = int(
+                st.slider(
+                    "Oven temperature (F)",
+                    min_value=250,
+                    max_value=500,
+                    step=25,
+                    key="oven_temp_f",
+                    format="%dF",
+                    label_visibility="collapsed",
+                )
+            )
+            st.markdown(
+                '<div class="major-ticks"><span class="edge-left" style="--pos:0">250</span><span style="--pos:0.2">300</span><span style="--pos:0.4">350</span><span style="--pos:0.6">400</span><span style="--pos:0.8">450</span><span class="edge-right" style="--pos:1">500</span></div>',
+                unsafe_allow_html=True,
+            )
+
+        c3, c5 = st.columns(2, gap="small")
+        with c3:
+            with bordered_container():
+                st.markdown('<p class="field-label">Oven mode</p>', unsafe_allow_html=True)
+                oven_b1, oven_b2 = st.columns(2, gap="small")
+                if oven_b1.button(
+                    "Bake",
+                    key="oven_mode_bake_btn",
+                    type="primary" if st.session_state.oven_mode == "bake" else "secondary",
+                    use_container_width=True,
+                ):
+                    st.session_state.oven_mode = "bake"
+                    safe_rerun()
+                if oven_b2.button(
+                    "Convection",
+                    key="oven_mode_convection_btn",
+                    type="primary" if st.session_state.oven_mode == "convection" else "secondary",
+                    use_container_width=True,
+                ):
+                    st.session_state.oven_mode = "convection"
+                    safe_rerun()
+
+        with c5:
+            with bordered_container():
+                st.markdown('<p class="field-label">Starting temp</p>', unsafe_allow_html=True)
+                start_b1, start_b2 = st.columns(2, gap="small")
+                if start_b1.button(
+                    "From fridge",
+                    key="start_temp_fridge_btn",
+                    type="primary" if st.session_state.start_temp_assumption == "fridge" else "secondary",
+                    use_container_width=True,
+                ):
+                    st.session_state.start_temp_assumption = "fridge"
+                    safe_rerun()
+                if start_b2.button(
+                    "Tempered",
+                    key="start_temp_tempered_btn",
+                    type="primary" if st.session_state.start_temp_assumption == "tempered" else "secondary",
+                    use_container_width=True,
+                ):
+                    st.session_state.start_temp_assumption = "tempered"
+                    safe_rerun()
+
+    weight_oz: Optional[float]
+    if st.session_state.weight_custom:
+        weight_oz = float(st.session_state.weight_slider)
+    else:
+        weight_oz = None
+
+    inputs = Inputs(
+        cut_id=st.session_state.selected_cut_id,
+        doneness_id=st.session_state.doneness_id,
+        thickness_in=float(st.session_state.thickness_in),
+        weight_oz=weight_oz,
+        oven_temp_f=int(st.session_state.oven_temp_f),
+        oven_mode=st.session_state.oven_mode,
+        start_temp_assumption=st.session_state.start_temp_assumption,
+    )
+    result = resolve_reverse_sear_estimate(starter_data, calibration_data, inputs)
+
+    with bordered_container():
+        render_result_card(result, int(st.session_state.oven_temp_f), st.session_state.oven_mode)
 
 
 if __name__ == "__main__":
