@@ -755,8 +755,6 @@ def inject_ui_style() -> None:
     st.markdown(
         """
         <style>
-        @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Oswald:wght@500;600;700&display=swap");
-
         :root {
           --bg-top: #f3ece2;
           --bg-mid: #eee4d7;
@@ -775,6 +773,7 @@ def inject_ui_style() -> None:
           --line-strong: rgba(92, 68, 58, 0.34);
           --shadow: 0 10px 22px rgba(56, 38, 29, 0.08);
           --slider-thumb-size: 24px;
+          --font-ui: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         }
 
         [data-testid="stHeader"], [data-testid="stToolbar"], #MainMenu, footer {
@@ -796,7 +795,7 @@ def inject_ui_style() -> None:
         }
 
         html, body, [data-testid="stAppViewContainer"] * {
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
         }
 
         .hero-panel {
@@ -821,7 +820,7 @@ def inject_ui_style() -> None:
         .hero-title {
           margin: 2px 0 0;
           text-align: left;
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: clamp(38px, 5.2vw, 70px);
           line-height: 1.05;
           font-weight: 800;
@@ -900,7 +899,7 @@ def inject_ui_style() -> None:
 
         .card-title {
           margin: 0 0 10px;
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: 36px;
           line-height: 1.1;
           font-weight: 800;
@@ -911,7 +910,7 @@ def inject_ui_style() -> None:
 
         .field-label {
           margin: 0 0 4px;
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: 13px;
           font-weight: 800;
           letter-spacing: 0.06em;
@@ -1073,7 +1072,7 @@ def inject_ui_style() -> None:
         }
 
         div[data-testid="stButton"] > button {
-          font-family: "Manrope", "Segoe UI", sans-serif !important;
+          font-family: var(--font-ui) !important;
           font-weight: 700 !important;
           font-size: 18px !important;
           letter-spacing: -0.01em;
@@ -1110,7 +1109,7 @@ def inject_ui_style() -> None:
 
         .result-time-number {
           margin: 0;
-          font-family: "Oswald", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: clamp(92px, 11.2vw, 154px);
           line-height: 0.82;
           font-weight: 700;
@@ -1121,7 +1120,7 @@ def inject_ui_style() -> None:
 
         .result-time-unit {
           margin: 0;
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: clamp(28px, 3.4vw, 44px);
           line-height: 1;
           font-weight: 800;
@@ -1132,7 +1131,7 @@ def inject_ui_style() -> None:
 
         .step-title {
           margin: 8px 0 8px;
-          font-family: "Manrope", "Segoe UI", sans-serif;
+          font-family: var(--font-ui);
           font-size: 26px;
           letter-spacing: -0.01em;
           text-transform: none;
