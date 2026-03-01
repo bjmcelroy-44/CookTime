@@ -1024,7 +1024,13 @@ def inject_ui_style() -> None:
         }
 
         div[data-baseweb="slider"] > div > div:nth-child(2) {
-          background: linear-gradient(90deg, var(--slider-accent), #ad3140) !important;
+          background: var(--slider-accent) !important;
+          height: 5px !important;
+        }
+
+        /* Fallback selector for Streamlit/BaseWeb DOM variants (local vs cloud builds). */
+        div[data-baseweb="slider"] > div > div:nth-of-type(2) {
+          background: var(--slider-accent) !important;
           height: 5px !important;
         }
 
